@@ -1,0 +1,21 @@
+mutation{
+  createUser(
+    email:"a@integ.ro",
+    username:"anibalajt",
+    password:"123456789",
+    fullname:"andres jaraba"
+  ) {
+    success,
+    token,
+    errors{
+      path,
+      message
+    }
+  }
+}
+
+mutation{
+  login (email:"a@integ.ro",password:"123456789") {
+    token
+  }
+}
