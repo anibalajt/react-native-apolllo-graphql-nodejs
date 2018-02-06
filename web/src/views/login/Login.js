@@ -5,15 +5,14 @@
  */
 
 import React, { Component } from "react";
-import { Platform, StyleSheet, View, Button, Dimensions } from "react-native";
 import { graphql, compose } from "react-apollo";
 
-import Signin from "./sign/in";
+// import Signin from "./sign/in";
 import Signup from "./sign/up";
-import Sample from "./components/sample";
-import queries from "./utils/queries";
-import getPlaceHolder from "./utils/placeHolder";
-import updatePlaceHolder from "./utils/updatePlaceHolder";
+import Sample from "../../components/sample";
+// import queries from "./utils/queries";
+import getPlaceHolder from "../../utils/placeHolder";
+import updatePlaceHolder from "../../utils/updatePlaceHolder";
 
 class Login extends Component {
   state = {
@@ -25,14 +24,14 @@ class Login extends Component {
     argsSignin: {},
     errorSignin: []
   };
-  handleChange = (value, name) => {
-    // const argsSignup = this.state.argsSignup
-    // argsSignup[name] = value
-    // this.setState({argsSignup})
+  handleChange = (e, name) => {
+    const argsSignup = this.state.argsSignup;
+    argsSignup[name] = e.target.value;
+    this.setState({ argsSignup });
     this.props.updatePH({
       variables: {
         index: name,
-        value: value
+        value: e.target.value
       }
     });
   };
@@ -56,8 +55,8 @@ class Login extends Component {
     let { navigation } = this.props;
 
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <View style={styles.form}>
+      <div style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <div>
           <Signup
             args={this.state.argsSignup}
             navigation={navigation}
@@ -65,12 +64,20 @@ class Login extends Component {
             handleChange={this.handleChange}
           />
           <Sample />
-        </View>
-      </View>
+        </div>
+      </div>
     );
   }
 }
 
+/* <Signup
+      args={this.state.argsSignup}
+      navigation={navigation}
+      handleRegister={this.handleRegister}
+      handleChange={this.handleChange}
+    />
+  <Sample /> */
+// export default Login;
 export default compose(
   // graphql(getPlaceHolder, {
   //   props: ({ data: { placeHolder, loading } }) => ({
@@ -80,12 +87,3 @@ export default compose(
   // }),
   graphql(updatePlaceHolder, { name: "updatePH" })
 )(Login);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF"
-  }
-});
