@@ -2,7 +2,7 @@ import React from "react";
 
 // import { contentInput, input, btn, textBtn } from '../utils/style'
 
-export default ({ args, navigation, handleRegister, handleChange }) => {
+export default ({ args, handleRegister, handleChange }) => {
   return (
     <div>
       <div>
@@ -15,7 +15,7 @@ export default ({ args, navigation, handleRegister, handleChange }) => {
           name="Email"
         />
       </div>
-      <div >
+      <div>
         <input
           type="text"
           onChange={text => {
@@ -25,7 +25,7 @@ export default ({ args, navigation, handleRegister, handleChange }) => {
           name="Password"
         />
       </div>
-      <div >
+      <div>
         <input
           type="text"
           onChange={text => {
@@ -36,9 +36,13 @@ export default ({ args, navigation, handleRegister, handleChange }) => {
         />
       </div>
       <div>
-        <div >
-          <div>
-            <span >Registrar</span>
+        <div>
+          <div
+            onClick={() => {
+              handleRegister(args);
+            }}
+          >
+            <span>Registrar</span>
           </div>
         </div>
       </div>

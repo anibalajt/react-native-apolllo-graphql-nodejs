@@ -1,32 +1,38 @@
 import React from "react";
-import { graphql, compose } from "react-apollo";
-import getPlaceHolder from "../utils/placeHolder";
+import gql from "graphql-tag";
+import { graphql } from "react-apollo";
 
-const Sample = ({ placeHolder, loading }) => {
+const TODOS_QUERY = gql`
+  query GetUsers {
+    users @client {
+      id
+      rpassword
+      password
+      email
+    }
+  }
+`;
+
+const Sample = ({ users, loading }) => {
   if (loading) {
     return <div> loading... </div>;
   }
-
+  console.log("users: ", users);
   return (
     <div>
-      <div>
-        <span >{placeHolder.email}</span>
-      </div>
-      <div>
-        <span >{placeHolder.password}</span>
-      </div>
-      <div>
-        <span >
-          {placeHolder.rpassword}
-        </span>
-      </div>
+      {users.map((user, key) => (
+        <div key={key}>
+          {user.email} - {user.password}
+        </div>
+      ))}
+      <div>sample</div>
     </div>
   );
 };
 
-export default graphql(getPlaceHolder, {
-  props: ({ data: { placeHolder, loading } }) => ({
-    placeHolder,
+export default graphql(TODOS_QUERY, {
+  props: ({ data: { users, loading } }) => ({
+    users,
     loading
   })
 })(Sample);
